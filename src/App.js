@@ -3,32 +3,27 @@ import "./App.css";
 import Movie from "./Movie";
 
 class App extends Component {
-  state = {
-    greeting: "Hello!",
-    movies: [
-      {
-        title: "Harry Potter",
-        poster:
-          "https://upload.wikimedia.org/wikipedia/ko/thumb/d/dd/%ED%95%B4%EB%A6%AC_%ED%8F%AC%ED%84%B0%EC%99%80_%EB%A7%88%EB%B2%95%EC%82%AC%EC%9D%98_%EB%8F%8C_%EC%98%81%ED%99%94.jpg/250px-%ED%95%B4%EB%A6%AC_%ED%8F%AC%ED%84%B0%EC%99%80_%EB%A7%88%EB%B2%95%EC%82%AC%EC%9D%98_%EB%8F%8C_%EC%98%81%ED%99%94.jpg"
-      },
-      {
-        title: "Inception",
-        poster:
-          "https://upload.wikimedia.org/wikipedia/ko/thumb/1/1d/%EC%9D%B8%EC%85%89%EC%85%98.jpg/250px-%EC%9D%B8%EC%85%89%EC%85%98.jpg"
-      },
-      {
-        title: "LittleForest",
-        poster:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Little_Forest_%28%EB%A6%AC%ED%8B%80_%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8%29.jpg/220px-Little_Forest_%28%EB%A6%AC%ED%8B%80_%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8%29.jpg"
-      }
-    ]
-  };
+  state = {};
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
         movies: [
-          ...this.state.movies,
+          {
+            title: "Harry Potter",
+            poster:
+              "https://upload.wikimedia.org/wikipedia/ko/thumb/d/dd/%ED%95%B4%EB%A6%AC_%ED%8F%AC%ED%84%B0%EC%99%80_%EB%A7%88%EB%B2%95%EC%82%AC%EC%9D%98_%EB%8F%8C_%EC%98%81%ED%99%94.jpg/250px-%ED%95%B4%EB%A6%AC_%ED%8F%AC%ED%84%B0%EC%99%80_%EB%A7%88%EB%B2%95%EC%82%AC%EC%9D%98_%EB%8F%8C_%EC%98%81%ED%99%94.jpg"
+          },
+          {
+            title: "Inception",
+            poster:
+              "https://upload.wikimedia.org/wikipedia/ko/thumb/1/1d/%EC%9D%B8%EC%85%89%EC%85%98.jpg/250px-%EC%9D%B8%EC%85%89%EC%85%98.jpg"
+          },
+          {
+            title: "LittleForest",
+            poster:
+              "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Little_Forest_%28%EB%A6%AC%ED%8B%80_%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8%29.jpg/220px-Little_Forest_%28%EB%A6%AC%ED%8B%80_%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8%29.jpg"
+          },
           {
             title: "La La Land",
             poster:
@@ -36,18 +31,18 @@ class App extends Component {
           }
         ]
       });
-    }, 1000);
+    }, 5000);
   }
-
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      return <Movie title={movie.title} poster={movie.poster} key={index} /> 
+    })
+    return movies;
+  }
   render() {
     return (
       <div className="App">
-        {this.state.greeting}
-        {this.state.movies.map((movie, index) => {
-          return (
-            <Movie title={movie.title} poster={movie.poster} key={index} />
-          );
-        })}
+        {this.state.movies ? this._renderMovies() : "Loading"}
       </div>
     );
   }
